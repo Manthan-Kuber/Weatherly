@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>Weatherly -{% block title %}
+    {% endblock title %}</title>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">Weatherly™</a>
+    </div>
+  </nav>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+  <div class="container">
+    <form action="/" method='POST'>
+      <div class="form-group">
+        <label for="city"><h3>City</h3></label>
+        <input type="text" name="city" class="form-control" id="city" placeholder="Enter city">
+      </div>
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+  </div>
+
+  <div class="container my-3">
+    {% if weather['city']|length != 0 %}
+    <div class="alert alert-primary" role="alert">
+      <img src="http://openweathermap.org/img/w/{{weather['icon']}}.png" alt="image"> <span style="text-transform:uppercase">{{weather['city']}}</span>
+      <br>
+      Temperature is <u>{{weather['temperature']}}</u> F <br> Feels like it's <u>{{weather['feels like']}}</u> F
+      <br>
+      Pressure is <u>{{weather['pressure']}}</u> atm with the humidity being <u>{{weather['humidity']}}</u> gm/cu
+    </div>
+    {% endif %}
+
+  </div>
+
+</body>
+
+</html>
