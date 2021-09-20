@@ -1,5 +1,5 @@
 import requests
-from  flask import  Flask,render_template,request
+from  flask import  Flask,render_template,request,redirect
 
 app = Flask(__name__)
 
@@ -12,6 +12,8 @@ def home():
     if request.method == 'POST':
         city = request.form.get('city')
         resp = requests.get(url.format(city)).json()
+        if "name" not in resp:
+            return redirect('/')
         weather={
             'city':city,
             'temperature':resp['main']['temp'],
@@ -20,8 +22,10 @@ def home():
             'humidity' : resp['main']['humidity'],
             'icon': resp['weather'][0]['icon']
         }
-      
+
+        
     return render_template('index.html',weather=weather)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
